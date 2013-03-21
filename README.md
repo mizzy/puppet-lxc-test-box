@@ -1,4 +1,4 @@
-# puppet-lxc-dev-box
+# puppet-lxc-test-box
 
 ```
 $ git checkout git://github.com/mizzy/puppet-lxc-test-box.git
