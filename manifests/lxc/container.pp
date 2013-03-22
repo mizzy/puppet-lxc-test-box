@@ -50,6 +50,26 @@ class lxc-test-box::lxc::container {
       require => Exec["yum groupinstall core for $name"],
     }
 
+    file { "epel.repo for $name":
+      path    => "$rootfs/etc/yum.repos.d/epel.repo",
+      source  => "puppet:///modules/lxc-test-box/epel.repo",
+      require => Exec["yum groupinstall core for $name"],
+    }
+
+
+    exec { "yum install rubygmes for $name":
+      command => "/usr/bin/yum -y --installroot=$rootfs install rubygems",
+      unless  => "/bin/rpm -qa --root=$rootfs | grep rubygems",
+      require => Exec["yum groupinstall core for $name"],
+    }
+
+    exec { "yum install puppet for $name":
+      command => "/usr/bin/yum -y --installroot=$rootfs install puppet",
+      unless  => "/bin/rpm -qa --root=$rootfs | grep puppet",
+      require => File["epel.repo for $name"],
+    }
+
+
     file { "/etc/sysconfig/network for $name":
       path    => "$rootfs/etc/sysconfig/network",
       content => template('lxc-test-box/network'),
