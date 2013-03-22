@@ -1,0 +1,2 @@
+NETWORKING=yes
+HOSTNAME=<%= name %>.lxc-test-box.pb

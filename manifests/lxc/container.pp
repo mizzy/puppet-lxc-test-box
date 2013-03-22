@@ -50,6 +50,12 @@ class lxc-test-box::lxc::container {
       require => Exec["yum groupinstall core for $name"],
     }
 
+    file { "/etc/sysconfig/network for $name":
+      path    => "$rootfs/etc/sysconfig/network",
+      content => template('lxc-test-box/network'),
+      require => Exec["yum groupinstall core for $name"],
+    }
+
     exec {
       "stop auditd for $name":
         require => Exec["yum groupinstall core for $name"],
