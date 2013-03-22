@@ -12,7 +12,7 @@ Write a manifest file.
 ```
 include lxc-test-box
 
-Exec { path => '/sbin:/usr/sbin:/bin:/usr/sbin' }
+Exec { path => '/sbin:/usr/sbin:/bin:/usr/bin' }
 
 lxc-test-box::lxc::setup { 'base':   ipaddress => '172.16.0.2' }
 lxc-tets-box::lxc::setup { 'manage': ipaddress => '172.16.0.3' }
