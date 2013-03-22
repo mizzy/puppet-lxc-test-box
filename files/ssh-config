@@ -1,0 +1,5 @@
+Host *.lxc-test-box
+   User root
+   StrictHostKeyChecking no
+   UserKnownHostsFile=/dev/null
+   IdentityFile ~/.ssh/insecurekey

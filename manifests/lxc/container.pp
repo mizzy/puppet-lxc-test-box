@@ -65,6 +65,17 @@ class lxc-test-box::lxc::container {
         command => "/usr/sbin/chroot $rootfs /sbin/chkconfig udev-post off";
     }
 
+    file {
+      "$rootfs/root/.ssh":
+        ensure => directory;
+      "$rootfs/root/.ssh/authorized_keys":
+        require => File["$rootfs/root/.ssh"],
+        mode    => 644,
+        owner   => 'root',
+        group   => 'root',
+        source  => "puppet:///modules/lxc-test-box/insecurekey.pub";
+    }
+
   }
 
 }
