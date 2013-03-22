@@ -8,7 +8,10 @@ class lxc-test-box::lxc {
     host { "$name.lxc-test-box": ip => $ipaddress }
     container::create { $name:   }
     devices::create   { $name:  require => Lxc::Container::Create[$name] }
-    config::create    { $name: ipaddress => $ipaddress }
+    config::create    { $name:
+      ipaddress => $ipaddress,
+      require   => Lxc::Container::Create[$name],
+    }
   }
 
 }
