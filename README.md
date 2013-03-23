@@ -1,5 +1,7 @@
 # puppet-lxc-test-box
 
+This module works on Red Hat Enterprise or RHEL clone version 6.x.
+
 Clone two puppet modules.
 
 ```
