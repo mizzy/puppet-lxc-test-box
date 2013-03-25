@@ -93,7 +93,8 @@ class lxc-test-box::lxc::container {
 
     file {
       "$rootfs/root/.ssh":
-        ensure => directory;
+        ensure  => directory,
+        require => Exec["yum groupinstall core for $name"];
       "$rootfs/root/.ssh/authorized_keys":
         require => File["$rootfs/root/.ssh"],
         mode    => 644,
