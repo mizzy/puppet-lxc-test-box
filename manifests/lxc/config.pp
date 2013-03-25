@@ -8,7 +8,7 @@ class lxc-test-box::lxc::config {
       require => File['/etc/lxc'];
   }
 
-  define create( $ipaddress = '') {
+  define create( $ipaddress_eth0 = '', $ipaddress_eth1 ) {
     $role = $name
     file { "/etc/lxc/conf.d/$name.conf":
       require  => File['/etc/lxc/conf.d'],

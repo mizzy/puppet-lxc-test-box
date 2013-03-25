@@ -74,6 +74,12 @@ class lxc-test-box::lxc::container {
       require => Exec["yum groupinstall core for $name"],
     }
 
+    file { "/etc/sysconfig/static-routes for $name":
+      path    => "$rootfs/etc/sysconfig/static-routes",
+      source  => 'puppet:///modules/lxc-test-box/static-routes',
+      require => Exec["yum groupinstall core for $name"],
+    }
+
     exec {
       "stop auditd for $name":
         require => Exec["yum groupinstall core for $name"],

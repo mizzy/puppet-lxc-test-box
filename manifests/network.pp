@@ -10,6 +10,15 @@ class lxc-test-box::network {
     refreshonly => true,
   }
 
+  file { '/etc/sysconfig/network-scripts/ifcfg-br1':
+    source => 'puppet:///modules/lxc-test-box/ifcfg-br1',
+    notify => Exec['restart br1'],
+  }
+
+  exec {'restart br1':
+    command     => '/sbin/ifdown br0; /sbin/ifup br1',
+    refreshonly => true,
+  }
   sysctl::value { 'net.ipv4.ip_forward': value => 1 }
 
   file { '/etc/sysconfig/iptables':
@@ -22,5 +31,9 @@ class lxc-test-box::network {
     subscribe => File['/etc/sysconfig/iptables'],
   }
 
+
+  file { '/etc/sysconfig/static-routes':
+    source => 'puppet:///modules/lxc-test-box/static-routes',
+  }
 
 }
