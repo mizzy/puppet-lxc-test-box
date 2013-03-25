@@ -61,12 +61,6 @@ class lxc-test-box::lxc::container {
       require => Exec["yum groupinstall core for $name"],
     }
 
-    exec { "yum install puppet for $name":
-      command => "/usr/bin/yum -y --installroot=$rootfs install puppet",
-      unless  => "/bin/rpm -qa --root=$rootfs | grep puppet",
-      require => File["epel.repo for $name"],
-    }
-
 
     file { "/etc/sysconfig/network for $name":
       path    => "$rootfs/etc/sysconfig/network",
