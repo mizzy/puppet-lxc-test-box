@@ -14,17 +14,9 @@ class lxc-test-box::lxc::container {
     }
 
     exec { "install lxc for $name":
-      command => "/usr/bin/yum -y --installroot=$rootfs install /tmp/lxc-0.7.5-1.x86_64.rpm",
-      require => File['/tmp/lxc-0.7.5-1.x86_64.rpm'],
+      command => "/usr/bin/yum -y --installroot=$rootfs install lxc",
       timeout => 0,
-      unless  => "/bin/rpm -qa --root=$rootfs | grep lxc-0.7.5-1",
-    }
-
-    exec { "install lxc-devel for $name":
-      command => "/usr/bin/yum -y --installroot=$rootfs install /tmp/lxc-devel-0.7.5-1.x86_64.rpm",
-      require => File['/tmp/lxc-devel-0.7.5-1.x86_64.rpm'],
-      timeout => 0,
-      unless  => "/bin/rpm -qa --root=$rootfs | grep lxc-devel-0.7.5-1",
+      unless  => "/bin/rpm -qa --root=$rootfs | grep lxc",
     }
 
     exec { "set root password for $name":
@@ -32,6 +24,12 @@ class lxc-test-box::lxc::container {
       require => Exec["yum groupinstall core for $name"],
     }
 
+
+    file { "/etc/yum.repos.d/rpmforge.repo for $name":
+      path    => "$rootfs/etc/yum.repos.d/rpmforge.repo",
+      source  => "puppet:///modules/lxc-test-box/rpmforge.repo",
+      require => Exec["yum groupinstall core for $name"],
+    }
     file { "rc.sysinit for $name":
       path    => "$rootfs/etc/rc.d/rc.sysinit",
       source  => "puppet:///modules/lxc-test-box/rc.sysinit",
