@@ -4,6 +4,7 @@ class lxc-test-box::config {
 
   file {
     '/root/.ssh':
+      mode   => 700,
       ensure => directory;
     '/root/.ssh/insecurekey':
       source  => 'puppet:///modules/lxc-test-box/insecurekey',
@@ -15,6 +16,9 @@ class lxc-test-box::config {
       mode    => 644;
     '/root/.ssh/config':
       require => File['/root/.ssh'],
+      owner   => 'root',
+      group   => 'root',
+      mode    => 644,
       source  => 'puppet:///modules/lxc-test-box/ssh-config';
   }
 
