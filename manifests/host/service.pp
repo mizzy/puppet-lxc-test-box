@@ -1,4 +1,4 @@
-class lxc-test-box::service {
+class lxc_test_box::host::service {
 
   service { 'monit':
     ensure  => running,

@@ -1,10 +1,27 @@
-class lxc-test-box {
+class lxc_test_box {
+  include lxc_test_box::host
+  include lxc_test_box::guest
 
-  include lxc-test-box::package
-  include lxc-test-box::config
-  include lxc-test-box::service
-  include lxc-test-box::cgroup
-  include lxc-test-box::network
-  include lxc-test-box::lxc
+  #include lxc_test_box::lxc
+
+}
+
+class lxc_test_box::host {
+  include lxc_test_box::host::yumrepo
+  include lxc_test_box::host::install
+  include lxc_test_box::host::config
+  include lxc_test_box::host::service
+  include lxc_test_box::host::network
+  include lxc_test_box::host::rootfs
+
+     Class['lxc_test_box::host::yumrepo']
+  -> Class['lxc_test_box::host::install']
+  -> Class['lxc_test_box::host::config']
+  -> Class['lxc_test_box::host::service']
+  -> Class['lxc_test_box::host::network']
+  -> Class['lxc_test_box::host::rootfs']
+}
+
+class lxc_test_box::guest {
 
 }
