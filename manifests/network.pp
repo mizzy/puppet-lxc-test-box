@@ -32,8 +32,4 @@ class lxc-test-box::network {
   }
 
 
-  file { '/etc/sysconfig/static-routes':
-    source => 'puppet:///modules/lxc-test-box/static-routes',
-  }
-
 }
