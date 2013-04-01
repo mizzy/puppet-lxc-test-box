@@ -16,9 +16,9 @@ include lxc-test-box
 
 Exec { path => '/sbin:/usr/sbin:/bin:/usr/bin' }
 
-lxc-test-box::lxc::setup { 'base':   ipaddress => '172.16.0.2' }
-lxc-tets-box::lxc::setup { 'manage': ipaddress => '172.16.0.3' }
-lxc-test-box::lxc::setup { 'smtp':   ipaddress => '172.16.0.4' }
+lxc-test-box::lxc::setup { 'base':   ipaddress_eth0 => '172.16.0.2', ipaddress_eth1 => '172.16.1.2' }
+lxc-tets-box::lxc::setup { 'manage': ipaddress_eth0 => '172.16.0.3', ipaddress_eth1 => '172.16.1.3' }
+lxc-test-box::lxc::setup { 'smtp':   ipaddress_eth0 => '172.16.0.4', ipaddress_eth1 => '172.16.1.4' }
 ```
 
 Apply this manifest.
