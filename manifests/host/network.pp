@@ -1,7 +1,6 @@
-class lxc-test-box::network {
-
+class lxc_test_box::host::network {
   file { '/etc/sysconfig/network-scripts/ifcfg-br0':
-    source => 'puppet:///modules/lxc-test-box/ifcfg-br0',
+    source => 'puppet:///modules/lxc_test_box/ifcfg-br0',
     notify => Exec['restart br0'],
   }
 
@@ -11,7 +10,7 @@ class lxc-test-box::network {
   }
 
   file { '/etc/sysconfig/network-scripts/ifcfg-br1':
-    source => 'puppet:///modules/lxc-test-box/ifcfg-br1',
+    source => 'puppet:///modules/lxc_test_box/ifcfg-br1',
     notify => Exec['restart br1'],
   }
 
@@ -22,7 +21,7 @@ class lxc-test-box::network {
   sysctl::value { 'net.ipv4.ip_forward': value => 1 }
 
   file { '/etc/sysconfig/iptables':
-    source => 'puppet:///modules/lxc-test-box/iptables',
+    source => 'puppet:///modules/lxc_test_box/iptables',
   }
 
   service { 'iptables':
@@ -30,6 +29,4 @@ class lxc-test-box::network {
     enable    => true,
     subscribe => File['/etc/sysconfig/iptables'],
   }
-
-
 }
