@@ -7,4 +7,11 @@ class lxc_test_box::rootfs::install {
     unless  => "/bin/rpm -qa --root=$basedir | grep lxc",
   }
 
+  exec { "yum install rubygmes for rootfs":
+    command => "/usr/bin/yum -y --installroot=$base_dir install rubygems",
+    unless  => "/bin/rpm -qa --root=$base_dir | grep rubygems",
+    require => Exec["yum groupinstall core for rootfs"],
+  }
+
+
 }

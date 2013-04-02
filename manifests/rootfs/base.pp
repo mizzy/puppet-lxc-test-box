@@ -21,9 +21,4 @@ class lxc_test_box::rootfs::base {
     require => Exec["yum groupinstall core for rootfs"],
   }
 
-  exec { "set root password for rootfs":
-    command => "/usr/sbin/chroot $base_dir bash -e -c 'echo root:root | chpasswd'",
-  }
-
-
 }

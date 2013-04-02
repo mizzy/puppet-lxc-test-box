@@ -19,4 +19,25 @@ class lxc_test_box::host::config {
       source  => 'puppet:///modules/lxc_test_box/ssh-config';
   }
 
+  file {
+    '/etc/lxc':
+      ensure => directory;
+    '/etc/lxc/conf.d':
+      ensure  => directory,
+      require => File['/etc/lxc'];
+  }
+
+  file { '/cgroup':
+    ensure => directory,
+  }
+
+  mount { '/cgroup':
+    atboot  => true,
+    ensure  => mounted,
+    fstype  => 'cgroup',
+    device  => 'none',
+    options => 'defaults',
+    require => File['/cgroup'],
+  }
+
 }
