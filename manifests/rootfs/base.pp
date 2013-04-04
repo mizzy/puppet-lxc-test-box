@@ -21,4 +21,10 @@ class lxc_test_box::rootfs::base {
     require => Exec["yum groupinstall core for rootfs"],
   }
 
+  file { "epel.repo for rootfs":
+    path    => "$base_dir/etc/yum.repos.d/epel.repo",
+    source  => "puppet:///modules/lxc_test_box/epel.repo",
+    require => Exec["yum groupinstall core for rootfs"],
+  }
+
 }
