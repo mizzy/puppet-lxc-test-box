@@ -13,9 +13,19 @@ class lxc_test_box::guest::rootfs {
   }
 
   define config {
+    file { "/var/rootfs/$name/etc":
+      ensure => directory,
+    }
+
+    file { "/var/rootfs/$name/etc/sysconfig":
+      ensure  => directory,
+      require => File["/var/rootfs/$name/etc"],
+    }
+
     file { "/etc/sysconfig/network for $name":
       path    => "/var/rootfs/$name/etc/sysconfig/network",
       content => template('lxc_test_box/network'),
+      require => File["/var/rootfs/$name/etc/sysconfig"],
     }
   }
 
