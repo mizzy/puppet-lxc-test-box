@@ -53,5 +53,10 @@ class lxc_test_box::guest {
       require        => Rootfs::Config[$role],
       notify         => Service['monit'],
     }
+
+       Host["$name.lxc-test-box"]
+    -> Rootfs::Clone[$role]
+    -> Rootfs::Config[$role]
+    -> Config::Create[$role]
   }
 }
